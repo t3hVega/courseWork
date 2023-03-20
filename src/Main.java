@@ -1,60 +1,48 @@
 import java.util.Scanner;
 
 public class Main {
-    public static void getStaffData(Employee [] staff){
+    public static Employee[] staff = new Employee[10];
+    public static void getStaffData(){
         for (int i = 0; i < staff.length; i++) {
             System.out.println(staff[i]);
             System.out.println("---");
         }
     }
-    public static void getTotalSalary(Employee [] staff){
+    public static double getTotalSalary(){
         double totalSalary = 0;
         for (int i = 0; i < staff.length; i++) {
             totalSalary += staff[i].getSalary();
         }
-        System.out.println("Общая зарплата сотрудников равна " + totalSalary + " рублей");
+        return totalSalary;
+    }
+    public static void getMinSalary(){
+        Employee minSalary = staff[0];
+        for (int i = 0; i < staff.length; i++) {
+            if (staff[i].getSalary() < minSalary.getSalary()) {
+                minSalary = staff[i];
+            }
+        }
+        System.out.println("Сотрудник с минимальной зарплатой:");
+        System.out.println(minSalary);
         System.out.println("---");
     }
-    public static void getMinSalary(Employee [] staff){
-        double minSalary = staff[0].getSalary();
+    public static void getMaxSalary() {
+        Employee maxSalary = staff[0];
         for (int i = 0; i < staff.length; i++) {
-            if (staff[i].getSalary() < minSalary) {
-                minSalary = staff[i].getSalary();
+            if (staff[i].getSalary() > maxSalary.getSalary()) {
+                maxSalary = staff[i];
             }
         }
-        for (int i = 0; i < staff.length; i++) {
-            if (staff[i].getSalary() == minSalary) {
-                System.out.println("Сотрудник с минимальной зарплатой:");
-                System.out.println(staff[i]);
-                System.out.println("---");
-            }
-        }
+        System.out.println("Сотрудник с максимальной зарплатой:");
+        System.out.println(maxSalary);
+        System.out.println("---");
     }
-    public static void getMaxSalary(Employee[] staff) {
-        double maxSalary = 0;
-        for (int i = 0; i < staff.length; i++) {
-            if (staff[i].getSalary() > maxSalary) {
-                maxSalary = staff[i].getSalary();
-            }
-        }
-        for (int i = 0; i < staff.length; i++) {
-            if (staff[i].getSalary() == maxSalary) {
-                System.out.println("Сотрудник с максимальной зарплатой:");
-                System.out.println(staff[i]);
-                System.out.println("---");
-            }
-        }
-    }
-    public static void getAverageSalary(Employee [] staff){
-        double totalSalary = 0;
-        for (int i = 0; i < staff.length; i++) {
-            totalSalary += staff[i].getSalary();
-        }
-        double averageSalary = totalSalary / staff.length;
+    public static void getAverageSalary(){
+        double averageSalary = getTotalSalary() / staff.length;
         System.out.println("Средняя зарплата сотрудников равна " + averageSalary + " рублей");
         System.out.println("---");
     }
-    public static void getStaffNames(Employee [] staff){
+    public static void getStaffNames(){
         System.out.println("ФИО сотрудников: ");
         for (int i = 0; i < staff.length; i++) {
             System.out.println(staff[i].getFullName());
@@ -65,7 +53,6 @@ public class Main {
     public static void main(String[] args) {
         int count;
         Scanner scan = new Scanner(System.in);
-        Employee[] staff = new Employee[10];
         for (int i = 0; i < staff.length; i++) {
             System.out.println("---");
             System.out.println("Введите полное имя сотрудника:");
@@ -78,11 +65,12 @@ public class Main {
             scan.nextLine(); //необходимо для считывания ФИО сотрудника, без данной команды "String fullName = scan.nextLine();" пропускается
         }
         System.out.println("---");
-        getStaffData(staff);
-        getTotalSalary(staff);
-        getMinSalary(staff);
-        getMaxSalary(staff);
-        getAverageSalary(staff);
-        getStaffNames(staff);
+        getStaffData();
+        System.out.println("Общая сумма зарплат равна " + getTotalSalary() + " рублей");
+        System.out.println("---");
+        getMinSalary();
+        getMaxSalary();
+        getAverageSalary();
+        getStaffNames();
     }
 }
